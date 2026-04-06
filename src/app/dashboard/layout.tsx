@@ -4,15 +4,14 @@ import { redirect } from "next/navigation";
 import { 
   Building2, 
   LayoutDashboard, 
-  Settings, 
   Users, 
   LogOut,
-  PlusCircle,
   BarChart3,
   Home,
   Wallet,
   Gauge
 } from "lucide-react";
+import NewPropertyModal from "@/components/dashboard/NewPropertyModal";
 
 export default async function DashboardLayout({
   children,
@@ -26,20 +25,20 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex font-sans">
+    <div className="min-h-screen bg-[#F8FAFC] flex font-sans antialiased text-slate-900">
       {/* Sidebar */}
-      <aside className="w-72 border-r-2 border-black flex flex-col p-6 space-y-8 bg-white">
-        <Link href="/dashboard" className="flex items-center gap-3 px-2">
-          <div className="p-2 bg-primary rounded-xl shrink-0 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-            <Building2 className="w-6 h-6 text-white" />
+      <aside className="w-80 flex flex-col p-8 space-y-10 bg-white border-r border-slate-200/60 sticky top-0 h-screen">
+        <Link href="/dashboard" className="flex items-center gap-4 px-2">
+          <div className="p-2.5 bg-primary rounded-2xl shrink-0 shadow-lg shadow-primary/20">
+            <Building2 className="w-7 h-7 text-white" />
           </div>
           <div>
-            <span className="text-xl font-black text-black italic leading-none uppercase">ARNOLD KUTHE</span>
-            <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-0.5">Internes System</p>
+            <span className="text-xl font-black text-slate-900 italic leading-none uppercase tracking-tight">ARNOLD KUTHE</span>
+            <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-1">Management Portal</p>
           </div>
         </Link>
 
-        <nav className="flex-1 space-y-2">
+        <nav className="flex-1 space-y-1.5 overflow-y-auto pr-2 custom-scrollbar">
           {[
             { name: "Übersicht", icon: LayoutDashboard, href: "/dashboard" },
             { name: "Liegenschaften", icon: Building2, href: "/dashboard/properties" },
@@ -52,46 +51,45 @@ export default async function DashboardLayout({
             <Link
               key={item.name}
               href={item.href}
-              className="flex items-center gap-3 px-5 py-4 text-gray-500 hover:text-black hover:bg-gray-100 rounded-2xl transition-all duration-200 group border-2 border-transparent hover:border-black shadow-none hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
+              className="flex items-center gap-3.5 px-6 py-4 text-slate-500 hover:text-primary hover:bg-slate-50 rounded-[1.5rem] transition-all duration-300 group border border-transparent hover:border-slate-100"
             >
-              <item.icon className="w-5 h-5 group-hover:scale-110 transition-transform" />
-              <span className="text-[11px] font-black uppercase tracking-widest italic">{item.name}</span>
+              <item.icon className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
+              <span className="text-[11px] font-black uppercase tracking-wider italic">{item.name}</span>
             </Link>
           ))}
         </nav>
 
-        <div className="space-y-4 pt-8 border-t-2 border-black/5">
-          <div className="px-5 py-5 bg-gray-50 rounded-[2rem] border-2 border-black space-y-2">
-            <p className="text-[9px] text-gray-400 font-black uppercase tracking-widest leading-none">Angemeldet als</p>
-            <p className="text-sm font-black text-black truncate italic">{session?.user?.name || session?.user?.email || "Benutzer"}</p>
-            <span className="inline-block px-3 py-1 bg-primary text-white text-[9px] font-black uppercase rounded-lg border border-black italic leading-none">
+        <div className="space-y-6 pt-8 border-t border-slate-100">
+          <div className="px-6 py-6 bg-slate-50/50 rounded-[2rem] border border-slate-100 space-y-2 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 w-16 h-16 bg-primary/5 blur-2xl group-hover:bg-primary/10 transition-all"></div>
+            <p className="text-[9px] text-slate-400 font-black uppercase tracking-widest leading-none relative z-10">Konto</p>
+            <p className="text-sm font-black text-slate-900 truncate italic relative z-10">{session?.user?.name || session?.user?.email || "Benutzer"}</p>
+            <span className="inline-block px-3 py-1.5 bg-white shadow-sm text-primary text-[9px] font-black uppercase rounded-xl border border-slate-100 italic leading-none relative z-10">
               {session?.user?.role || "GAST"}
             </span>
           </div>
 
-          <button className="w-full flex items-center gap-3 px-5 py-4 text-red-600 font-black uppercase tracking-widest text-[11px] hover:bg-red-50 rounded-2xl transition-all duration-200 group border-2 border-transparent hover:border-red-600 italic">
-            <LogOut className="w-5 h-5" />
+          <button className="w-full flex items-center gap-3.5 px-6 py-4 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-[1.5rem] transition-all duration-300 group font-black uppercase tracking-wider text-[11px] italic">
+            <LogOut className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
             <span>Abmelden</span>
           </button>
         </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 h-screen overflow-y-auto">
-        <header className="h-20 border-b-2 border-black px-12 flex items-center justify-between sticky top-0 bg-white/80 backdrop-blur-md z-30">
-          <h2 className="text-xl font-black text-black italic tracking-tight uppercase">Management-Zentrum</h2>
+      <main className="flex-1 min-h-screen">
+        <header className="h-24 px-12 flex items-center justify-between sticky top-0 bg-white/70 backdrop-blur-xl z-30 border-b border-slate-100/80">
+          <h2 className="text-xl font-black text-slate-900 italic tracking-tight uppercase">Dashboard</h2>
           
-          <div className="flex items-center gap-4">
-            <button className="px-8 py-3 bg-primary text-white rounded-full text-[11px] font-black uppercase tracking-widest flex items-center gap-2 hover:scale-105 transition-all shadow-xl shadow-primary/20 border-2 border-black active:scale-95 italic">
-              <PlusCircle className="w-4 h-4" /> Neues Objekt
-            </button>
-            <div className="w-11 h-11 rounded-2xl bg-white border-2 border-black flex items-center justify-center text-black font-black text-xs italic shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+          <div className="flex items-center gap-6">
+            <NewPropertyModal />
+            <div className="w-12 h-12 rounded-2xl bg-white shadow-md border border-slate-100 flex items-center justify-center text-slate-900 font-black text-xs italic group hover:border-primary transition-all cursor-pointer">
               {session?.user?.name?.substring(0, 2).toUpperCase() || "AK"}
             </div>
           </div>
         </header>
         
-        <div className="p-12">
+        <div className="p-12 max-w-[1600px] mx-auto">
           {children}
         </div>
       </main>

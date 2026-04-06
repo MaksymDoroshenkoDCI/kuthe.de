@@ -8,12 +8,16 @@ import {
 
 export default async function DashboardPage() {
   const propertiesCount = await prisma.property.count();
-  const unitsCount = await prisma.unit.count();
-  const tenantsCount = await prisma.tenant.count();
+
+  // Use raw queries for newer models – avoids IDE cache type errors
+  const [unitsRow] = await prisma.$queryRaw<[{ count: bigint }]>`SELECT COUNT(*)::int as count FROM "Unit"`;
+  const [tenantsRow] = await prisma.$queryRaw<[{ count: bigint }]>`SELECT COUNT(*)::int as count FROM "Tenant"`;
+  const unitsCount = Number(unitsRow?.count ?? 0);
+  const tenantsCount = Number(tenantsRow?.count ?? 0);
+
   const recentProperties = await prisma.property.findMany({
     take: 5,
     orderBy: { createdAt: 'desc' },
-    include: { units: true }
   });
 
   const stats = [
@@ -23,70 +27,74 @@ export default async function DashboardPage() {
   ];
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-16">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-5xl font-black text-slate-900 italic tracking-tighter uppercase leading-none">Übersicht</h1>
+        <p className="text-slate-400 text-sm font-medium">Willkommen zurück. Hier ist der aktuelle Status Ihres Portfolios.</p>
+      </div>
+
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
         {stats.map((stat) => (
-          <div key={stat.label} className="bg-white p-8 rounded-[2.5rem] border-2 border-black group hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all duration-300">
-            <div className="flex justify-between items-start mb-6">
-              <div className="p-4 bg-gray-50 rounded-2xl border border-black/5 group-hover:bg-primary group-hover:text-white transition-colors">
-                <stat.icon className="w-6 h-6" />
+          <div key={stat.label} className="bg-white p-10 rounded-[3rem] shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-slate-200/60 transition-all duration-500 group border border-slate-50 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl -z-0"></div>
+            <div className="flex justify-between items-start mb-8 relative z-10">
+              <div className="p-5 bg-slate-50 rounded-[1.5rem] group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-sm">
+                <stat.icon className="w-7 h-7" />
               </div>
-              <span className="text-[10px] font-black text-primary uppercase tracking-[0.2em] italic bg-primary/10 px-3 py-1 rounded-full">{stat.trend}</span>
+              <span className="text-[10px] font-black text-primary uppercase tracking-widest italic bg-white shadow-sm border border-slate-100 px-4 py-2 rounded-full">{stat.trend}</span>
             </div>
-            <p className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] mb-1 italic">{stat.label}</p>
-            <h3 className="text-4xl font-black text-black italic tracking-tighter uppercase">{stat.value}</h3>
+            <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest mb-2 italic relative z-10">{stat.label}</p>
+            <h3 className="text-5xl font-black text-slate-900 italic tracking-tighter uppercase relative z-10 line-clamp-1">{stat.value}</h3>
           </div>
         ))}
       </div>
 
       {/* Recent Properties */}
-      <div className="space-y-8">
-        <div className="flex justify-between items-end px-2">
-          <div className="space-y-1">
-            <h3 className="text-3xl font-black text-black italic tracking-tight uppercase leading-none">Aktuelle Objekte</h3>
-            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Zuletzt zum Portfolio hinzugefügt</p>
+      <div className="space-y-10">
+        <div className="flex justify-between items-end px-4">
+          <div className="space-y-2">
+            <h3 className="text-3xl font-black text-slate-900 italic tracking-tight uppercase leading-none">Aktuelle Objekte</h3>
+            <p className="text-[11px] text-slate-400 font-bold uppercase tracking-widest italic">Zuletzt verwaltete Liegenschaften</p>
           </div>
-          <button className="text-[10px] font-black text-primary uppercase tracking-[0.2em] hover:underline italic bg-white px-6 py-3 rounded-full border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:scale-95 transition-all">Gesamtes Portfolio</button>
+          <button className="text-[11px] font-black text-slate-600 hover:text-primary uppercase tracking-widest transition-all italic flex items-center gap-2 group">
+            Gesamtes Portfolio <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+          </button>
         </div>
         
-        <div className="bg-white rounded-[3rem] border-2 border-black overflow-hidden shadow-2xl">
+        <div className="bg-white rounded-[3.5rem] shadow-xl shadow-slate-200/40 border border-slate-50 overflow-hidden">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b-2 border-black bg-gray-50">
-                <th className="px-10 py-6 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] italic">Objektname</th>
-                <th className="px-10 py-6 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] italic">Standort</th>
-                <th className="px-10 py-6 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] italic">Typ</th>
-                <th className="px-10 py-6 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] italic">Status</th>
-                <th className="px-10 py-6 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] italic text-right">Aktion</th>
+              <tr className="bg-slate-50/50">
+                <th className="px-12 py-8 text-[11px] font-black text-slate-400 uppercase tracking-widest italic">Objektname</th>
+                <th className="px-12 py-8 text-[11px] font-black text-slate-400 uppercase tracking-widest italic">Standort</th>
+                <th className="px-12 py-8 text-[11px] font-black text-slate-400 uppercase tracking-widest italic">Typ</th>
+                <th className="px-12 py-8 text-[11px] font-black text-slate-400 uppercase tracking-widest italic text-right">Details</th>
               </tr>
             </thead>
-            <tbody className="divide-y-2 divide-black/5">
+            <tbody className="divide-y divide-slate-100">
               {recentProperties.map((prop) => (
-                <tr key={prop.id} className="hover:bg-gray-50/50 transition-colors group">
-                  <td className="px-10 py-8">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center border border-black/5 group-hover:border-black transition-colors">
-                        <Building2 className="w-6 h-6 text-gray-400 group-hover:text-primary" />
+                <tr key={prop.id} className="hover:bg-slate-50/50 transition-colors group">
+                  <td className="px-12 py-10">
+                    <div className="flex items-center gap-6">
+                      <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100 group-hover:border-primary/20 transition-all shadow-sm">
+                        <Building2 className="w-7 h-7 text-slate-400 group-hover:text-primary" />
                       </div>
-                      <span className="text-lg font-black text-black italic tracking-tight uppercase leading-none">{prop.name}</span>
+                      <div className="flex flex-col">
+                        <span className="text-xl font-black text-slate-900 italic tracking-tight uppercase leading-none">{prop.name}</span>
+                        <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1.5 italic transition-all group-hover:translate-x-1">{prop.address}</span>
+                      </div>
                     </div>
                   </td>
-                  <td className="px-10 py-8 text-sm text-gray-500 font-bold italic">{prop.city}</td>
-                  <td className="px-10 py-8">
-                    <span className="px-4 py-1.5 bg-gray-100 rounded-lg text-[9px] font-black text-gray-500 uppercase tracking-widest border border-black/5">
-                      {prop.type.replace('_', ' ')}
+                  <td className="px-12 py-10 text-sm text-slate-500 font-bold italic">{prop.city}</td>
+                  <td className="px-12 py-10">
+                    <span className="px-5 py-2 bg-slate-100/50 text-slate-500 rounded-xl text-[10px] font-black uppercase tracking-widest border border-slate-100">
+                      {prop.type.replaceAll('_', ' ')}
                     </span>
                   </td>
-                  <td className="px-10 py-8">
-                    <div className="flex items-center gap-2 px-3 py-1.5 bg-green-50 rounded-full w-fit border border-green-200">
-                      <div className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)]" />
-                      <span className="text-[10px] font-black text-green-600 uppercase tracking-widest leading-none">AKTIV</span>
-                    </div>
-                  </td>
-                  <td className="px-10 py-8 text-right">
-                    <button className="p-3 hover:bg-black hover:text-white border-2 border-transparent hover:border-black rounded-xl transition-all active:scale-90">
-                      <ArrowUpRight className="w-5 h-5" />
+                  <td className="px-12 py-10 text-right">
+                    <button className="p-4 hover:bg-primary hover:text-white bg-slate-50 text-slate-400 rounded-2xl transition-all duration-300 shadow-sm active:scale-90 group-hover:rotate-6">
+                      <ArrowUpRight className="w-6 h-6" />
                     </button>
                   </td>
                 </tr>
