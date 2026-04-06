@@ -113,8 +113,8 @@ export default function ContactPage() {
               </div>
             </div>
 
-            <div className="lg:w-[400px]">
-              <div className="bg-black p-12 rounded-[3.5rem] shadow-2xl relative overflow-hidden group sticky top-32">
+            <div className="lg:w-[400px] flex flex-col">
+              <div className="bg-black p-12 rounded-[3.5rem] shadow-2xl relative overflow-hidden group flex-1">
                  <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 blur-[100px] -z-0 group-hover:bg-primary/30 transition-all duration-700" />
                  <h3 className="text-[11px] font-black uppercase tracking-[0.3em] text-primary mb-10 italic">Company Registry</h3>
                  <div className="space-y-6 relative z-10">
