@@ -14,73 +14,76 @@ export default async function DashboardPage() {
   });
 
   const stats = [
-    { label: "Portfolio Value", value: "€142.5M", icon: TrendingUp, trend: "+12.5%" },
-    { label: "Active Properties", value: propertiesCount, icon: Building2, trend: "Stable" },
-    { label: "Total Tenants", value: "842", icon: Users, trend: "+3.2%" },
+    { label: "Portfoliowert", value: "€142.5M", icon: TrendingUp, trend: "+12.5%" },
+    { label: "Aktive Objekte", value: propertiesCount, icon: Building2, trend: "Stabil" },
+    { label: "Gesamtmieter", value: "842", icon: Users, trend: "+3.2%" },
   ];
 
   return (
     <div className="space-y-12">
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {stats.map((stat) => (
-          <div key={stat.label} className="glass p-8 rounded-[2rem] border border-white/5 group hover:border-primary/20 transition-all duration-500">
-            <div className="flex justify-between items-start mb-4">
-              <div className="p-3 bg-white/5 rounded-2xl group-hover:bg-primary/10 transition-colors">
-                <stat.icon className="w-6 h-6 text-primary" />
+          <div key={stat.label} className="bg-white p-8 rounded-[2.5rem] border-2 border-black group hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all duration-300">
+            <div className="flex justify-between items-start mb-6">
+              <div className="p-4 bg-gray-50 rounded-2xl border border-black/5 group-hover:bg-primary group-hover:text-white transition-colors">
+                <stat.icon className="w-6 h-6" />
               </div>
-              <span className="text-[10px] font-black text-primary uppercase tracking-widest">{stat.trend}</span>
+              <span className="text-[10px] font-black text-primary uppercase tracking-[0.2em] italic bg-primary/10 px-3 py-1 rounded-full">{stat.trend}</span>
             </div>
-            <p className="text-gray-500 text-xs font-bold uppercase tracking-widest mb-1">{stat.label}</p>
-            <h3 className="text-3xl font-black text-white italic tracking-tighter">{stat.value}</h3>
+            <p className="text-gray-400 text-[10px] font-black uppercase tracking-[0.2em] mb-1 italic">{stat.label}</p>
+            <h3 className="text-4xl font-black text-black italic tracking-tighter uppercase">{stat.value}</h3>
           </div>
         ))}
       </div>
 
       {/* Recent Properties */}
-      <div className="space-y-6">
-        <div className="flex justify-between items-end">
-          <h3 className="text-2xl font-black text-white italic tracking-tight">Recent Assets</h3>
-          <button className="text-xs font-black text-primary uppercase tracking-widest hover:underline italic">View Full Portfolio</button>
+      <div className="space-y-8">
+        <div className="flex justify-between items-end px-2">
+          <div className="space-y-1">
+            <h3 className="text-3xl font-black text-black italic tracking-tight uppercase leading-none">Aktuelle Objekte</h3>
+            <p className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Zuletzt zum Portfolio hinzugefügt</p>
+          </div>
+          <button className="text-[10px] font-black text-primary uppercase tracking-[0.2em] hover:underline italic bg-white px-6 py-3 rounded-full border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] active:scale-95 transition-all">Gesamtes Portfolio</button>
         </div>
         
-        <div className="glass rounded-[2.5rem] border border-white/5 overflow-hidden">
+        <div className="bg-white rounded-[3rem] border-2 border-black overflow-hidden shadow-2xl">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-white/5 bg-white/5">
-                <th className="px-8 py-5 text-[10px] font-black text-gray-500 uppercase tracking-widest">Asset Name</th>
-                <th className="px-8 py-5 text-[10px] font-black text-gray-500 uppercase tracking-widest">Location</th>
-                <th className="px-8 py-5 text-[10px] font-black text-gray-500 uppercase tracking-widest">Type</th>
-                <th className="px-8 py-5 text-[10px] font-black text-gray-500 uppercase tracking-widest">Status</th>
-                <th className="px-8 py-5 text-[10px] font-black text-gray-500 uppercase tracking-widest text-right">Action</th>
+              <tr className="border-b-2 border-black bg-gray-50">
+                <th className="px-10 py-6 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] italic">Objektname</th>
+                <th className="px-10 py-6 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] italic">Standort</th>
+                <th className="px-10 py-6 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] italic">Typ</th>
+                <th className="px-10 py-6 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] italic">Status</th>
+                <th className="px-10 py-6 text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] italic text-right">Aktion</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y-2 divide-black/5">
               {recentProperties.map((prop) => (
-                <tr key={prop.id} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors group">
-                  <td className="px-8 py-6">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center overflow-hidden">
-                        <Building2 className="w-5 h-5 text-gray-500" />
+                <tr key={prop.id} className="hover:bg-gray-50/50 transition-colors group">
+                  <td className="px-10 py-8">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 rounded-xl bg-gray-50 flex items-center justify-center border border-black/5 group-hover:border-black transition-colors">
+                        <Building2 className="w-6 h-6 text-gray-400 group-hover:text-primary" />
                       </div>
-                      <span className="font-bold text-white italic tracking-tight">{prop.name}</span>
+                      <span className="text-lg font-black text-black italic tracking-tight uppercase leading-none">{prop.name}</span>
                     </div>
                   </td>
-                  <td className="px-8 py-6 text-sm text-gray-400 font-medium">{prop.city}</td>
-                  <td className="px-8 py-6">
-                    <span className="px-3 py-1 bg-white/5 rounded-full text-[10px] font-black text-gray-400 uppercase tracking-widest">
+                  <td className="px-10 py-8 text-sm text-gray-500 font-bold italic">{prop.city}</td>
+                  <td className="px-10 py-8">
+                    <span className="px-4 py-1.5 bg-gray-100 rounded-lg text-[9px] font-black text-gray-500 uppercase tracking-widest border border-black/5">
                       {prop.type.replace('_', ' ')}
                     </span>
                   </td>
-                  <td className="px-8 py-6">
-                    <div className="flex items-center gap-2">
+                  <td className="px-10 py-8">
+                    <div className="flex items-center gap-2 px-3 py-1.5 bg-green-50 rounded-full w-fit border border-green-200">
                       <div className="w-1.5 h-1.5 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.5)]" />
-                      <span className="text-[10px] font-black text-green-500 uppercase tracking-widest">{prop.status}</span>
+                      <span className="text-[10px] font-black text-green-600 uppercase tracking-widest leading-none">AKTIV</span>
                     </div>
                   </td>
-                  <td className="px-8 py-6 text-right">
-                    <button className="p-2 hover:bg-primary/10 rounded-lg group/btn transition-colors">
-                      <ArrowUpRight className="w-4 h-4 text-gray-500 group-hover/btn:text-primary transition-colors" />
+                  <td className="px-10 py-8 text-right">
+                    <button className="p-3 hover:bg-black hover:text-white border-2 border-transparent hover:border-black rounded-xl transition-all active:scale-90">
+                      <ArrowUpRight className="w-5 h-5" />
                     </button>
                   </td>
                 </tr>
