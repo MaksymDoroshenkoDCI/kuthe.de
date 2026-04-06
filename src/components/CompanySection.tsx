@@ -9,7 +9,7 @@ export default function CompanySection() {
   return (
     <section id="about" className="py-32 bg-white overflow-hidden">
       <div className="container mx-auto px-6 md:px-12">
-        <div className="max-w-4xl">
+        <div className="max-w-6xl">
           <div className="space-y-12">
             <div className="space-y-6">
               <div className="flex items-center gap-2">
@@ -24,7 +24,7 @@ export default function CompanySection() {
             <div className="relative">
               <Quote className="absolute -top-10 -left-10 w-24 h-24 text-gray-50 -z-10" />
               <div className="space-y-12">
-                <p className="text-2xl md:text-4xl font-medium text-gray-800 leading-tight tracking-tight italic">
+                <p className="text-xl md:text-3xl font-medium text-gray-800 leading-relaxed tracking-tight italic">
                   "{t.company.text}"
                 </p>
                 
