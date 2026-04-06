@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String    @id @default(uuid())
+  name      String?
+  email     String    @unique
+  password  String
+  role      UserRole  @default(MANAGER)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  properties Property[]
+}
+
+enum UserRole {
+  DIRECTOR
+  MANAGER
+}
+
+model Property {
+  id          String     @id @default(uuid())
+  name        String
+  address     String
+  city        String
+  zipCode     String
+  description String?
+  type        PropertyType
+  status      PropertyStatus @default(ACTIVE)
+  imageUrl    String[]
+  ownerId     String?
+  owner       User?      @relation(fields: [ownerId], references: [id])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  crmRecords  CrmRecord[]
+}
+
+enum PropertyType {
+  OFFICE_BUILDING
+  FACTORY_YARD
+  COMMERCIAL_YARD
+  INDUSTRIAL_LAND
+  NURSING_HOME
+  OTHER
+}
+
+enum PropertyStatus {
+  ACTIVE
+  INACTIVE
+  UNDER_MAINTENANCE
+  SOLD
+}
+
+model CrmRecord {
+  id          String    @id @default(uuid())
+  propertyId  String
+  property    Property  @relation(fields: [propertyId], references: [id])
+  recordType  CrmRecordType
+  description String
+  date        DateTime  @default(now())
+  assignedTo  String? 
+  status      CrmRecordStatus @default(OPEN)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+enum CrmRecordType {
+  SERVICE_REQUEST
+  TENANT_INTERACTION
+  MAINTENANCE_LOG
+  INSPECTION
+  OTHER
+}
+
+enum CrmRecordStatus {
+  OPEN
+  IN_PROGRESS
+  CLOSED
+  PENDING
+}
