@@ -23,7 +23,7 @@ export default function Hero() {
               <span className="text-[10px] font-black text-primary uppercase tracking-[0.2em] italic">Established in Berlin</span>
             </div>
             
-            <h1 className="text-6xl md:text-8xl font-black text-black mb-8 leading-[0.9] tracking-tighter italic">
+            <h1 className="text-4xl md:text-6xl font-black text-black mb-8 leading-[0.9] tracking-tighter italic">
               {t.hero.title.split(' ').map((word, i) => (
                 <span key={i} className={i % 2 === 1 ? "text-primary block" : "block"}>
                   {word}
