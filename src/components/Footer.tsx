@@ -17,13 +17,13 @@ export default function Footer() {
               <div className="relative w-8 h-8 group-hover:scale-110 transition-transform duration-300">
                 <Image 
                   src="/logo_klein (1).png" 
-                  alt="KUTHE Logo" 
+                  alt="Arnold Kuthe Logo" 
                   fill
                   className="object-contain"
                 />
               </div>
               <div className="flex flex-col">
-                <span className="text-lg font-black text-black italic leading-none tracking-tighter">KUTHE</span>
+                <span className="text-lg font-black text-black italic leading-none tracking-tighter">Arnold Kuthe</span>
                 <span className="text-[8px] font-bold text-primary uppercase tracking-[0.2em]">Immobilien</span>
               </div>
             </Link>

@@ -32,13 +32,13 @@ export default function Navbar() {
           <div className="relative w-10 h-10 group-hover:scale-110 transition-transform duration-300">
             <Image 
               src="/logo_klein (1).png" 
-              alt="KUTHE Logo" 
+              alt="Arnold Kuthe Logo" 
               fill
               className="object-contain"
             />
           </div>
           <div className="flex flex-col">
-            <span className="text-xl font-black text-black italic leading-none tracking-tighter">KUTHE</span>
+            <span className="text-xl font-black text-black italic leading-none tracking-tighter">Arnold Kuthe</span>
             <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em]">Immobilien</span>
           </div>
         </Link>

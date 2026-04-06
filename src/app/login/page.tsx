@@ -73,7 +73,7 @@ export default function LoginPage() {
         <div className="glass p-10 rounded-[2.5rem] border border-white/10 shadow-2xl space-y-8">
           <div className="space-y-2">
             <h1 className="text-3xl font-black text-white italic tracking-tight">Internal Access.</h1>
-            <p className="text-sm text-gray-400 font-medium tracking-wide">Enter your professional credentials to manage the KUTHE portfolio.</p>
+            <p className="text-sm text-gray-400 font-medium tracking-wide">Enter your professional credentials to manage the Arnold Kuthe portfolio.</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
