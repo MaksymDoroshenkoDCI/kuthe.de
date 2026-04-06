@@ -8,7 +8,10 @@ import {
   Users, 
   LogOut,
   PlusCircle,
-  BarChart3
+  BarChart3,
+  Home,
+  Wallet,
+  Gauge
 } from "lucide-react";
 
 export default async function DashboardLayout({
@@ -39,8 +42,11 @@ export default async function DashboardLayout({
         <nav className="flex-1 space-y-2">
           {[
             { name: "Übersicht", icon: LayoutDashboard, href: "/dashboard" },
-            { name: "Portfolio", icon: Building2, href: "/dashboard/properties" },
-            { name: "CRM & Mieter", icon: Users, href: "/dashboard/crm" },
+            { name: "Liegenschaften", icon: Building2, href: "/dashboard/properties" },
+            { name: "Einheiten", icon: Home, href: "/dashboard/units" },
+            { name: "Mieter & Mieten", icon: Users, href: "/dashboard/tenants" },
+            { name: "Finanzen", icon: Wallet, href: "/dashboard/accounting" },
+            { name: "Zählerstände", icon: Gauge, href: "/dashboard/meters" },
             { name: "Analysen", icon: BarChart3, href: "/dashboard/analytics" },
           ].map((item) => (
             <Link

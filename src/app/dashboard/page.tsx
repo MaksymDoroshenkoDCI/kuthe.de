@@ -8,15 +8,18 @@ import {
 
 export default async function DashboardPage() {
   const propertiesCount = await prisma.property.count();
+  const unitsCount = await prisma.unit.count();
+  const tenantsCount = await prisma.tenant.count();
   const recentProperties = await prisma.property.findMany({
     take: 5,
-    orderBy: { createdAt: 'desc' }
+    orderBy: { createdAt: 'desc' },
+    include: { units: true }
   });
 
   const stats = [
-    { label: "Portfoliowert", value: "€142.5M", icon: TrendingUp, trend: "+12.5%" },
-    { label: "Aktive Objekte", value: propertiesCount, icon: Building2, trend: "Stabil" },
-    { label: "Gesamtmieter", value: "842", icon: Users, trend: "+3.2%" },
+    { label: "Portfolio-Objekte", value: propertiesCount, icon: Building2, trend: "Stabil" },
+    { label: "Verwaltete Einheiten", value: unitsCount, icon: TrendingUp, trend: "+5.1%" },
+    { label: "Aktive Mieter", value: tenantsCount, icon: Users, trend: "+2.4%" },
   ];
 
   return (
