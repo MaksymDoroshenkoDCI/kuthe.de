@@ -11,7 +11,7 @@ export default function CompanySection() {
       <div className="container mx-auto px-6 md:px-12">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            <div className="lg:col-span-4 self-start">
+            <div className="lg:col-span-4 self-start lg:pr-12">
               <div className="space-y-4">
                 <div className="flex items-center gap-2">
                   <span className="w-12 h-[2px] bg-primary" />
