@@ -87,11 +87,10 @@ export default function PropertyGrid() {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-x-6 gap-y-12">
-          {COMPLETED_PROPERTIES.map((property, i) => (
+          {COMPLETED_PROPERTIES.map((property) => (
             <div 
               key={property.id} 
-              className="opacity-0 animate-in fade-in zoom-in duration-500 fill-mode-forwards"
-              style={{ animationDelay: `${i * 50}ms` }}
+              className="fade-in"
             >
               <PropertyCard {...property} />
             </div>
