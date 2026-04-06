@@ -61,12 +61,12 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="hidden lg:block flex-1 relative h-[600px] w-full rounded-[3rem] overflow-hidden shadow-2xl border-[12px] border-white ring-1 ring-black/5">
+          <div className="hidden lg:block flex-1 relative h-[600px] w-full rounded-[3rem] overflow-hidden shadow-2xl border-[12px] border-white ring-1 ring-black/5 group">
             <Image 
                src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2670&auto=format&fit=crop"
                alt="Berlin Architecture"
                fill
-               className="object-cover"
+               className="object-cover group-hover:scale-110 transition-transform duration-700"
                priority
             />
           </div>
