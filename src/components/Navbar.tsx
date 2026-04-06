@@ -38,8 +38,8 @@ export default function Navbar() {
             />
           </div>
           <div className="flex flex-col">
-            <span className="text-xl font-black text-black italic leading-none tracking-tighter">Arnold Kuthe</span>
-            <span className="text-[10px] font-bold text-primary uppercase tracking-[0.2em]">Immobilien</span>
+            <span className="text-xl font-black text-black italic leading-none tracking-tighter">ARNOLD KUTHE</span>
+            <span className="text-[7px] md:text-[8px] font-bold text-primary uppercase tracking-[0.05em] leading-tight">IMMOBILIENVERWALTUNGS GMBH</span>
           </div>
         </Link>
 

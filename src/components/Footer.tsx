@@ -23,8 +23,8 @@ export default function Footer() {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="text-lg font-black text-black italic leading-none tracking-tighter">Arnold Kuthe</span>
-                <span className="text-[8px] font-bold text-primary uppercase tracking-[0.2em]">Immobilien</span>
+                <span className="text-lg font-black text-black italic leading-none tracking-tighter uppercase">ARNOLD KUTHE</span>
+                <span className="text-[7px] font-bold text-primary uppercase tracking-[0.1em] leading-tight">IMMOBILIENVERWALTUNGS GMBH</span>
               </div>
             </Link>
             <p className="text-gray-500 text-xs leading-relaxed max-w-xs font-medium uppercase italic tracking-wider">
