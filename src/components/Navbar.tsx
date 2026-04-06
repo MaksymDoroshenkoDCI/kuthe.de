@@ -5,11 +5,13 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { LogIn, Menu, X } from "lucide-react";
 import { useLanguage } from "@/lib/LanguageContext";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { locale, setLocale, t } = useLanguage();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,6 +20,8 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  if (pathname.startsWith('/dashboard')) return null;
 
   return (
     <nav 

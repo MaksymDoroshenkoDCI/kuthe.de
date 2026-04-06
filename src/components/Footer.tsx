@@ -4,9 +4,13 @@ import { useLanguage } from "@/lib/LanguageContext";
 import { Mail, MapPin, Phone, Printer } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
   const { t } = useLanguage();
+  const pathname = usePathname();
+
+  if (pathname.startsWith('/dashboard')) return null;
 
   return (
     <footer className="bg-white border-t border-black/5 pt-24 pb-12 overflow-hidden">
