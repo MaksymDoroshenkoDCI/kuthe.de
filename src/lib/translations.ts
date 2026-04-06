@@ -14,7 +14,7 @@ export const translations = {
     },
     company: {
       title: "UNSERE PHILOSOPHIE",
-      text: "Wir konzentrieren uns auf hochwertige Bürogebäude, klassische Fabrik- und Gewerbehöfe, industriell genutzte Gewerbegrundstücke und Pflegeheime. Dabei suchen wir das Besondere und Einzigartige in Berlin, ohne uns starre Grenzen bei der Art der Gewerbeimmobilie zu setzen.",
+      text: "Wir sind ein mittelständisches inhabergeführtes Familienunternehmen, welches auf dem Berliner Gewerbeimmobilienmarkt operiert. Wir verwalten ausschließlich die Immobilien unserer eigenen Arnold Kuthe Unternehmensgruppe. Das betreute Immobilienportfolio ist breit gefächert und umfasst hochwertige Bürogebäude als auch klassische Fabrik- und Gewerbehöfe. Im Bestand befinden sich gleichfalls industriell genutzte Gewerbegrundstücken und Pflegeheime. Wir setzen hier bewusst keine Grenzen. Unsere Grundstücke und Gebäude überraschen vielmehr durch ihre Einzigartigkeit und Besonderheit.",
       values: "Kontinuität · Qualität · Unabhängigkeit"
     },
     properties: {
@@ -61,7 +61,7 @@ export const translations = {
     },
     company: {
       title: "OUR PHILOSOPHY",
-      text: "We focus on high-quality office buildings, classic factory and commercial courtyards, industrially used commercial land and nursing homes. We look for the special and unique in Berlin without setting rigid boundaries for the type of commercial property.",
+      text: "We are a medium-sized owner-managed family business operating in the Berlin commercial real estate market. We exclusively manage the properties of our own Arnold Kuthe corporate group. The managed real estate portfolio is broadly diversified and includes high-quality office buildings as well as classic factory and commercial courtyards. The portfolio also includes industrially used commercial land and nursing homes. We deliberately set no boundaries here. Our properties and buildings rather surprise through their uniqueness and special character.",
       values: "Continuity · Quality · Independence"
     },
     properties: {
