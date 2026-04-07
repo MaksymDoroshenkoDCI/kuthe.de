@@ -1,21 +1,23 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, UnitStatus, PropertyStatus, PropertyType, UserRole } from '@prisma/client';
 import bcrypt from 'bcryptjs';
 import "dotenv/config";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  const hashedPassword = await bcrypt.hash('password123', 10);
+  const hashedPassword = await bcrypt.hash('admin123', 10);
 
   // Створення адміністратора
   const admin = await prisma.user.upsert({
     where: { email: 'admin@kuthe.de' },
-    update: {},
+    update: {
+      password: hashedPassword
+    },
     create: {
       email: 'admin@kuthe.de',
       name: 'KUTHE Director',
       password: hashedPassword,
-      role: 'DIRECTOR' as any,
+      role: UserRole.DIRECTOR,
     },
   });
 
@@ -28,13 +30,13 @@ async function main() {
       address: 'Alexanderplatz 1',
       city: 'Berlin',
       zipCode: '10178',
-      type: 'OFFICE_BUILDING' as any,
-      status: 'ACTIVE' as any,
+      type: PropertyType.OFFICE_BUILDING,
+      status: PropertyStatus.ACTIVE,
       units: {
         create: [
-          { number: 'EG 01', floor: '0', area: 120.5, baseRent: 2450.00, utilityPrepay: 450.00, status: 'RENTED' },
-          { number: 'OG 01', floor: '1', area: 250.0, baseRent: 5200.00, utilityPrepay: 850.00, status: 'RENTED' },
-          { number: 'OG 02', floor: '1', area: 85.0, baseRent: 1800.00, utilityPrepay: 220.00, status: 'VACANT' },
+          { number: 'EG 01', floor: '0', area: 120.5, baseRent: 2450.00, utilityPrepay: 450.00, status: UnitStatus.RENTED },
+          { number: 'OG 01', floor: '1', area: 250.0, baseRent: 5200.00, utilityPrepay: 850.00, status: UnitStatus.RENTED },
+          { number: 'OG 02', floor: '1', area: 85.0, baseRent: 1800.00, utilityPrepay: 220.00, status: UnitStatus.VACANT },
         ]
       }
     },
@@ -43,12 +45,12 @@ async function main() {
       address: 'Rungestraße 20',
       city: 'Berlin',
       zipCode: '10179',
-      type: 'FACTORY_YARD' as any,
-      status: 'ACTIVE' as any,
+      type: PropertyType.FACTORY_YARD,
+      status: PropertyStatus.ACTIVE,
       units: {
         create: [
-          { number: 'Halle A', floor: '0', area: 850.0, baseRent: 12500.00, utilityPrepay: 2100.00, status: 'RENTED' },
-          { number: 'Atelier 1', floor: '2', area: 45.5, baseRent: 950.00, utilityPrepay: 150.00, status: 'RENTED' },
+          { number: 'Halle A', floor: '0', area: 850.0, baseRent: 12500.00, utilityPrepay: 2100.00, status: UnitStatus.RENTED },
+          { number: 'Atelier 1', floor: '2', area: 45.5, baseRent: 950.00, utilityPrepay: 150.00, status: UnitStatus.RENTED },
         ]
       }
     },
@@ -65,7 +67,7 @@ async function main() {
 
     // Add tenants for rented units
     for (const unit of createdProp.units) {
-      if (unit.status === 'RENTED') {
+      if (unit.status === UnitStatus.RENTED) {
         const tenant = await prisma.tenant.create({
           data: {
             unitId: unit.id,
