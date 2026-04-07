@@ -23,7 +23,7 @@ export default async function PropertiesPage() {
       </div>
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-10">
-        {properties.map((property) => (
+        {properties.map((property: any) => (
           <div key={property.id} className="bg-white rounded-[3rem] p-10 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-slate-200/60 transition-all duration-500 group border border-slate-50 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-48 h-48 bg-primary/5 blur-3xl -z-0 group-hover:bg-primary/10 transition-all duration-700"></div>
             

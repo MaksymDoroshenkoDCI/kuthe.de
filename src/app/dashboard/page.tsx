@@ -35,7 +35,7 @@ export default async function DashboardPage() {
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        {stats.map((stat) => (
+        {stats.map((stat: any) => (
           <div key={stat.label} className="bg-white p-10 rounded-[3rem] shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-slate-200/60 transition-all duration-500 group border border-slate-50 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl -z-0"></div>
             <div className="flex justify-between items-start mb-8 relative z-10">

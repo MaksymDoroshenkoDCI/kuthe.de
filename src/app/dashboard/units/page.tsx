@@ -45,7 +45,7 @@ export default async function UnitsPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {units.map((unit) => (
+            {units.map((unit: any) => (
               <tr key={unit.id} className="hover:bg-slate-50/50 transition-colors group">
                 <td className="px-12 py-10">
                   <div className="flex items-center gap-6">

@@ -30,7 +30,7 @@ export default async function TenantsPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-10">
-        {tenants.map((tenant) => (
+        {tenants.map((tenant: any) => (
           <div key={tenant.id} className="bg-white rounded-[3.5rem] p-10 shadow-xl shadow-slate-200/40 hover:shadow-2xl hover:shadow-slate-200/60 transition-all duration-500 group border border-slate-50 relative overflow-hidden flex flex-col justify-between min-h-[500px]">
              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl -z-0 transition-opacity duration-700 opacity-50 group-hover:opacity-100"></div>
             

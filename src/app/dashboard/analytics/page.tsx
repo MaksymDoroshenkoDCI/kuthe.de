@@ -40,7 +40,7 @@ export default async function AnalyticsPage() {
           { label: "Portfolio-Wert", value: "€ 4.2M", trend: "+5.4%", icon: Building2, pos: true },
           { label: "Aktive Verträge", value: tenants, trend: "Stabil", icon: Users, pos: true },
           { label: "Rückstände", value: "€ 12.4k", trend: "-8%", icon: TrendingDown, pos: false },
-        ].map((kpi) => (
+        ].map((kpi: any) => (
           <div key={kpi.label} className="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/40 border border-slate-50 group hover:shadow-2xl transition-all duration-500 overflow-hidden relative">
             <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 blur-3xl group-hover:bg-primary/10 transition-all"></div>
             <div className="flex justify-between items-start mb-6">
@@ -79,7 +79,7 @@ export default async function AnalyticsPage() {
                 { label: "Vermietet", value: occupiedUnits, color: "bg-primary", sub: "Einheiten weltweit" },
                 { label: "Leerstand", value: vacantUnits, color: "bg-slate-200", sub: "Sofort verfügbar" },
                 { label: "In Wartung", value: 0, color: "bg-slate-400", sub: "Modernisierungen" }
-              ].map((item) => (
+              ].map((item: any) => (
                 <div key={item.label} className="space-y-2">
                   <div className="flex justify-between items-end">
                     <div className="flex items-center gap-3">
@@ -107,7 +107,7 @@ export default async function AnalyticsPage() {
             </div>
           </div>
           <div className="flex items-end justify-between h-56 gap-4 px-2">
-            {[45, 60, 55, 80, 75, 90, 85].map((height, i) => (
+            {[45, 60, 55, 80, 75, 90, 85].map((height: number, i: number) => (
               <div key={i} className="flex-1 flex flex-col items-center gap-4 group/bar">
                 <div className="w-full relative">
                   <div 

@@ -47,7 +47,7 @@ export default async function DashboardLayout({
             { name: "Finanzen", icon: Wallet, href: "/dashboard/accounting" },
             { name: "Zählerstände", icon: Gauge, href: "/dashboard/meters" },
             { name: "Analysen", icon: BarChart3, href: "/dashboard/analytics" },
-          ].map((item) => (
+          ].map((item: any) => (
             <Link
               key={item.name}
               href={item.href}

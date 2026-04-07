@@ -48,7 +48,7 @@ export default async function MetersPage() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        {meters.map((meter) => {
+        {meters.map((meter: any) => {
           const Icon = getIcon(meter.type);
           const colorClass = getColor(meter.type);
           const latestReading = meter.readings[0];
