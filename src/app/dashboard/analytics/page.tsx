@@ -22,8 +22,8 @@ export default async function AnalyticsPage() {
     include: { tenant: true }
   });
 
-  const occupiedUnits = units.filter(u => u.status === 'RENTED').length;
-  const vacantUnits = units.filter(u => u.status === 'VACANT').length;
+  const occupiedUnits = units.filter((u: any) => u.status === 'RENTED').length;
+  const vacantUnits = units.filter((u: any) => u.status === 'VACANT').length;
   const occupancyRate = units.length > 0 ? (occupiedUnits / units.length) * 100 : 0;
 
   return (
@@ -141,7 +141,7 @@ export default async function AnalyticsPage() {
          </div>
 
          <div className="space-y-6 relative z-10">
-            {payments.slice(0, 4).map((p, i) => (
+            {payments.slice(0, 4).map((p: any, i: number) => (
               <div key={p.id} className="flex flex-col md:flex-row md:items-center justify-between p-6 bg-white/5 rounded-3xl border border-white/10 hover:bg-white/10 transition-all group/item">
                 <div className="flex items-center gap-6">
                   <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center text-primary group-hover/item:rotate-12 transition-transform">
