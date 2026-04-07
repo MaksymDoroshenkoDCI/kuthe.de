@@ -3,8 +3,8 @@ import { Pool } from 'pg';
 import { PrismaPg } from '@prisma/adapter-pg';
 
 const prismaClientSingleton = () => {
-  // Read all potential connection strings from Vercel or local config
-  let connectionString = process.env.PRISMA_DATABASE_URL || process.env.POSTGRES_URL || process.env.DATABASE_URL || "postgres://dummy:dummy@localhost:5432/dummy";
+  // Use a custom variable first to bypass locked Vercel integration variables if they are broken
+  let connectionString = process.env.KUTHE_DATABASE_URL || process.env.PRISMA_DATABASE_URL || process.env.POSTGRES_URL || process.env.DATABASE_URL || "postgres://dummy:dummy@localhost:5432/dummy";
   connectionString = connectionString.replace(/^["']|["']$/g, '');
   
   if (connectionString.startsWith('prisma://') || connectionString.startsWith('prisma+postgres://')) {
