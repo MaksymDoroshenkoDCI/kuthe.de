@@ -9,7 +9,7 @@ export default async function AccountingPage() {
     orderBy: { date: 'desc' }
   });
 
-  const totalIncome = payments.reduce((acc, p) => acc + Number(p.amount), 0);
+  const totalIncome = payments.reduce((acc: number, p) => acc + Number(p.amount), 0);
 
   return (
     <div className="space-y-12">
