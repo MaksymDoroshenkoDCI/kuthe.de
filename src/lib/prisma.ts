@@ -1,10 +1,18 @@
 import { PrismaClient } from '@prisma/client';
-import { withAccelerate } from '@prisma/extension-accelerate';
+import { Pool } from 'pg';
+import { PrismaPg } from '@prisma/adapter-pg';
 
 const prismaClientSingleton = () => {
-  return new PrismaClient({
-    accelerateUrl: process.env.DATABASE_URL || "prisma+postgres://accelerate.prisma-data.net/?api_key=dummy",
-  }).$extends(withAccelerate());
+  const connectionString = process.env.DATABASE_URL || "postgres://dummy:dummy@localhost:5432/dummy";
+  
+  if (connectionString.startsWith('prisma')) {
+     const { withAccelerate } = require('@prisma/extension-accelerate');
+     return new PrismaClient({ accelerateUrl: connectionString }).$extends(withAccelerate());
+  } else {
+     const pool = new Pool({ connectionString });
+     const adapter = new PrismaPg(pool);
+     return new PrismaClient({ adapter });
+  }
 };
 
 declare global {
