@@ -73,7 +73,7 @@ export default async function DashboardPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {recentProperties.map((prop) => (
+              {recentProperties.map((prop: any) => (
                 <tr key={prop.id} className="hover:bg-slate-50/50 transition-colors group">
                   <td className="px-12 py-10">
                     <div className="flex items-center gap-6">

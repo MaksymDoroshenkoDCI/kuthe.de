@@ -9,7 +9,7 @@ export default async function AccountingPage() {
     orderBy: { date: 'desc' }
   });
 
-  const totalIncome = payments.reduce((acc: number, p) => acc + Number(p.amount), 0);
+  const totalIncome = payments.reduce((acc: number, p: any) => acc + Number(p.amount), 0);
 
   return (
     <div className="space-y-12">
@@ -72,7 +72,7 @@ export default async function AccountingPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {payments.map((payment) => (
+            {payments.map((payment: any) => (
               <tr key={payment.id} className="hover:bg-slate-50/50 transition-colors group">
                 <td className="px-12 py-10">
                   <div className="flex items-center gap-4 text-sm font-black text-slate-900 italic">
