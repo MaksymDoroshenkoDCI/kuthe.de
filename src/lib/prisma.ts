@@ -4,7 +4,7 @@ import { PrismaPg } from '@prisma/adapter-pg';
 
 const prismaClientSingleton = () => {
   // Use a custom variable first to bypass locked Vercel integration variables if they are broken
-  let connectionString = process.env.KUTHE_DATABASE_URL || process.env.PRISMA_DATABASE_URL || process.env.POSTGRES_URL || process.env.DATABASE_URL || "postgres://dummy:dummy@localhost:5432/dummy";
+  let connectionString = process.env.KUTHE_DATABASE_URL || "prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3RfaWQiOjEsInNlY3VyZV9rZXkiOiJza19fY0V1c2YyUU5leVBBa3VaZ3RmU2EiLCJhcGlfa2V5IjoiMDFLTkpUMjBIRUJUNDNZQlRORTc4NUMwOEMiLCJ0ZW5hbnRfaWQiOiJkMjBhNzI3Zjk4Zjk4MWQxOGFmNTg2YmU2ZTYzODc4OWE0Y2M4ZjhjYWFiODlmYTRmYThkYzcyYTYxOTkzZWE5IiwiaW50ZXJuYWxfc2VjcmV0IjoiNjk0NjMyZTYtYTc3NC00OGM3LTk0NTQtOGYxMWIxMDNlZDdmIn0.3yCya46Rv1xJ3a_Y5d390AOPt252o420vfjBpu5I4AM";
   connectionString = connectionString.replace(/^["']|["']$/g, '');
   
   if (connectionString.startsWith('prisma://') || connectionString.startsWith('prisma+postgres://')) {
