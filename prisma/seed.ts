@@ -1,12 +1,8 @@
-import { PrismaClient, UserRole, PropertyType } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcryptjs';
-import { Pool } from 'pg';
-import { PrismaPg } from '@prisma/adapter-pg';
-
 import "dotenv/config";
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter } as any);
+
+const prisma = new PrismaClient();
 
 async function main() {
   const hashedPassword = await bcrypt.hash('password123', 10);
@@ -77,7 +73,7 @@ async function main() {
             lastName: unit.number === 'EG 01' ? 'Mustermann' : 'Schmidt',
             email: `tenant.${unit.id.substring(0,4)}@example.com`,
             moveInDate: new Date('2023-01-01'),
-            deposit: unit.baseRent.mul(3),
+            deposit: Number(unit.baseRent) * 3,
           }
         });
 
@@ -85,7 +81,7 @@ async function main() {
         await prisma.payment.create({
           data: {
             tenantId: tenant.id,
-            amount: unit.baseRent.add(unit.utilityPrepay),
+            amount: Number(unit.baseRent) + Number(unit.utilityPrepay),
             date: new Date(),
             type: 'RENT',
             status: 'COMPLETED',
